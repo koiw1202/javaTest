@@ -15,8 +15,8 @@ public class Main {
 
         reflectionTest(a,b) ;
 
-        System.out.println(b.getName());
-        System.out.println(b.getNum());
+        System.out.println(b.getName()) ;
+        System.out.println(b.getNum()) ;
 
         List<String> listTest = List.of("111", "222", "333") ;
         b.setList(listTest);
