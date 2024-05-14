@@ -22,6 +22,7 @@ public class Main {
         b.setList(listTest);
 
         System.out.println(a.getList().get(0));
+
     }
 
     public static void reflectionTest(Object obj, Object target) throws Exception {
