@@ -1,64 +1,90 @@
 package codingTest;
 
+import com.sun.source.tree.BinaryTree;
+import com.sun.source.tree.ExpressionTree;
+import com.sun.source.tree.Tree;
+import com.sun.source.tree.TreeVisitor;
+
+import java.util.Deque;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
+
 public class Main {
-    private static int nodeCnt ;
-    private static int answer = 0 ;
-    private static int totalIndex = 0 ;
-    static class Node {
-
-        private Node left = null ;
-        private Node right = null ;
-        private int index ;
-
-        private void add(Node node) {
-            node.left = new Node() ;
-            node.left.index = totalIndex++ ;
-
-            node.right = new Node() ;
-            node.right.index = totalIndex++ ;
-
-            nodeCnt += 2 ;
-
-        }
-
-        private void searchLastNode(Node node) {
-
-            //현재 노드가 마지막 인덱스
-            if(node.left == null && node.right == null) {
-                nodeCnt-- ;
-
-                System.out.println(node.index);
-
-                node = null ;
-                answer += nodeCnt ;
-
-
-            } else if(node.left != null) {
-                searchLastNode(node.left);
-            } else if(node.right != null) {
-                searchLastNode(node.right) ;
-            }
-        }
-    }
+    static int staticIndex = 0 ;
 
     public static void main(String args[]) {
-        Node node = new Node() ;
-        node.index = totalIndex++ ;
+        int cnt = 5 ;
+        int cntTemp = cnt ;
 
-        int depth = 3 ;
-        nodeCnt = 1 ;
 
-        for(int i = 1 ; i < depth ; i++) {
-            node.add(node) ;
+        Node node = new Node()  ;
+
+        Queue<Node> que = new LinkedList<>() ;
+        Queue<Node> tempQueue = new LinkedList<>() ;
+        Stack<Node> stack = new Stack<>();
+
+        que.add(node) ;
+        tempQueue.add(node) ;
+        stack.add(node) ;
+
+        while(cntTemp > 0) {
+
+            Node tempNode = tempQueue.poll() ;
+
+            tempNode.left = new Node() ;
+            cntTemp-- ;
+
+            tempQueue.add(tempNode.left) ;
+            que.add(tempNode.left) ;
+            stack.add(tempNode.left) ;
+
+            if(cnt <= 0) {
+                break ;
+            }
+
+            tempNode.right = tempNode.addNode() ;
+            cntTemp-- ;
+
+            tempQueue.add(tempNode.right) ;
+            que.add(tempNode.right) ;
+            stack.add(tempNode.right) ;
         }
 
-        while(nodeCnt > 2) {
-            node.searchLastNode(node) ;
+        while (!stack.isEmpty()) {
+            Node tempNode1 = stack.pop() ;
+
+            System.out.println(tempNode1) ;
+
+            if(!stack.isEmpty()) {
+                Node tempNode2 = stack.pop() ;
+                tempNode2 = null ;
+                System.out.println(tempNode2) ;
+
+            }
+
+            tempNode1 = null ;
         }
 
-        System.out.println(answer);
+        System.out.println() ;
+        System.out.println(node.left.right) ;
 
     }
+
+    static class Node {
+        public Node left ;
+        public Node right ;
+        public int index ;
+
+        public Node() {
+            this.index = staticIndex++ ;
+        }
+
+        public Node addNode() {
+            return new Node() ;
+        }
+    }
+
 }
 
 
