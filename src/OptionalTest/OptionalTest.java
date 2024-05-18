@@ -15,9 +15,14 @@ public class OptionalTest {
         String str = "" ;
 
         Optional.ofNullable(str)
-                        .filter(s -> !s.isEmpty())
-                                .orElseThrow(() -> new Exception("공백")) ;
+                .filter(s -> !s.isEmpty())
+                .orElseThrow(() -> new Exception("공백")) ;
 
-         System.out.println(Optional.ofNullable(str).orElse("123")) ;
+        System.out.println(Optional.ofNullable(str).orElse("123")) ;
+
+        Optional.ofNullable(str)
+                .filter(not(String::isEmpty))
+                .orElseThrow(() -> new Exception("공백")) ;
+        
     }
 }
