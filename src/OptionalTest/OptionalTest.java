@@ -19,5 +19,7 @@ public class OptionalTest {
                                 .orElseThrow(() -> new Exception("공백")) ;
 
          System.out.println(Optional.ofNullable(str).orElse("123")) ;
+
+
     }
 }
