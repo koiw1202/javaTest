@@ -20,9 +20,6 @@ public class OptionalTest {
 
         System.out.println(Optional.ofNullable(str).orElse("123")) ;
 
-        Optional.ofNullable(str)
-                .filter(not(String::isEmpty))
-                .orElseThrow(() -> new Exception("공백")) ;
-        
+
     }
 }
