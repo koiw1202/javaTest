@@ -12,14 +12,18 @@ import java.util.Optional;
 public class OptionalTest {
     public static void main(String args[]) throws Exception {
 
-        String str = "" ;
+        String str1 = "" ;
+        String str2 = "" ;
+        String str3 = "" ;
 
-        Optional.ofNullable(str)
+        Optional.ofNullable(str1)
                 .filter(s -> !s.isEmpty())
-                .orElseThrow(() -> new Exception("공백")) ;
+                    .or(() -> Optional.ofNullable(str2)) ;
+//                .orElseThrow(() -> new Exception("공백")) ;
 
-        System.out.println(Optional.ofNullable(str).orElse("123")) ;
+    }
 
+    public static Optional find1(String source, String target) {
 
     }
 }
