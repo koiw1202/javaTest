@@ -23,7 +23,4 @@ public class OptionalTest {
 
     }
 
-    public static Optional find1(String source, String target) {
-
-    }
 }
