@@ -1,4 +1,4 @@
-package PackageTest.a.b.c;
+package packageTest.a.b.c;
 
 /**
  * description    :

@@ -1,4 +1,4 @@
-package OptionalTest;
+package optionalTest;
 
 import java.util.Optional;
 

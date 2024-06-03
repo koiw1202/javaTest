@@ -1,6 +1,6 @@
-package PackageTest;
+package packageTest;
 
-import PackageTest.a.b.c.Package2;
+import packageTest.a.b.c.Package2;
 
 /**
  * description    :

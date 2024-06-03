@@ -1,7 +1,5 @@
 package stream;
 
-import PackageTest.a.b.c.Package2;
-
 import java.util.List;
 
 /**
