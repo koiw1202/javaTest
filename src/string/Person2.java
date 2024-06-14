@@ -12,7 +12,7 @@ import java.util.logging.Logger;
 public class Person2 {
 
     public Person personBuilder(String name) {
-        final Person person ;
+        Person person = null;
 
         try {
             person = new Person() ;
