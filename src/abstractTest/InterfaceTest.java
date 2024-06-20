@@ -1,5 +1,7 @@
 package abstractTest;
 
+import java.util.UUID;
+
 /**
  * description    :
  * ===========================================================
@@ -9,6 +11,6 @@ package abstractTest;
  */
 public interface InterfaceTest {
 
-    public void print1() ;
+    public void print1(UUID uuid) ;
 
 }
