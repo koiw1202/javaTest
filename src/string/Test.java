@@ -22,6 +22,13 @@ public class Test {
                         """.formatted("test", "01012341234") ;
 
         System.out.println(output);
-    }
 
+        switch (s) {
+            case "1", "2", "3" -> System.out.println("1,2,3") ;
+            case "4", "5", "123" -> System.out.println("4,5,123") ;
+
+        }
+
+
+    }
 }

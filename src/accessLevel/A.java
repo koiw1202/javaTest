@@ -1,16 +1,15 @@
-package abstractTest;
-
-import java.util.UUID;
+package accessLevel;
 
 /**
  * description    :
  * ===========================================================
  * DATE              AUTHOR             NOTE
  * -----------------------------------------------------------
- * 2024-06-15        koiw1       최초 생성
+ * 2024-07-01        koiw1       최초 생성
  */
-public abstract class AbstractTest implements InterfaceTest {
+public class A {
 
-
-
+    protected A() {
+        System.out.println("A 호출") ;
+    }
 }
