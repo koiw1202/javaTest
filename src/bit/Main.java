@@ -5,12 +5,17 @@ import java.util.Queue;
 import java.util.Stack;
 
 public class Main {
-    static int staticIndex = 0 ;
 
     public static void main(String args[]) {
-        final int SYNTHETIC = 0x00000000 ;
+        int bitTest1 = 0b00000001 ;
+        int bitTest2 = 0b00000001 ;
 
-        System.out.println(SYNTHETIC);
+        System.out.println(bitTest1 & bitTest2);
+        System.out.println(Integer.toBinaryString(bitTest1 & bitTest2));
+
+
+
+
     }
 
 }
