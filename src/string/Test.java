@@ -1,5 +1,7 @@
 package string;
 
+import java.util.concurrent.LinkedBlockingQueue;
+
 /**
  * description    :
  * ===========================================================
@@ -26,9 +28,8 @@ public class Test {
         switch (s) {
             case "1", "2", "3" -> System.out.println("1,2,3") ;
             case "4", "5", "123" -> System.out.println("4,5,123") ;
-
         }
-
-
     }
+
+
 }

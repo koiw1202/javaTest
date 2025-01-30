@@ -8,41 +8,15 @@ import com.sun.source.tree.TreeVisitor;
 import java.util.*;
 
 public class Main {
-    static int staticIndex = 0 ;
 
     public static void main(String args[]) {
-        int n = 6;
-        int sum = 0;
 
-        for(int i = 1 ; i <= n -1; i++){
-            sum += (n-i );
-        }
+        Solution2 solution2 = new Solution2();
+//        int answer = solution2.solution(28, 18, 26, 10, 8, new int[]{0, 0, 1, 1, 1, 1, 1});
+        int answer = solution2.solution(11,8,10,10,1, new int[]{0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 1, 1});
 
-        System.out.println(sum);
-
+        System.out.println(answer);
     }
-
-    static class Node {
-        public Node left ;
-        public Node right ;
-
-        public Node() {
-
-        }
-
-        void addNode(Node node) {
-            if(node.left != null) {
-                node.right = new Node();
-            } else {
-                node.left = new Node();
-            }
-        }
-
-        public Node addNode() {
-            return new Node() ;
-        }
-    }
-
 }
 
 
