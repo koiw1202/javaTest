@@ -7,7 +7,7 @@ package codingTest;
  * -----------------------------------------------------------
  * 2025-01-30        koiw1       최초 생성
  */
-class Solution2 {
+public class Solution2 {
     final static Solution2 method = new Solution2();
 
     public int solution(int temperature, int t1, int t2, int a, int b, int[] onboard) {
@@ -55,6 +55,14 @@ class Solution2 {
 
                 }
             }
+
+//            for(int a1 = 0 ; a1 < DP.length; a1++){
+//                for(int a2 = 0 ; a2 < DP[a1].length; a2++){
+//                    System.out.print(DP[a1][a2] + " ");
+//                }
+//                System.out.println();
+//            }
+
         }
 
         int i = onboard.length-1;
