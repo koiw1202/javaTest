@@ -17,9 +17,6 @@ public class ExceptionTest {
         } catch (Exception e) {
             throw e;
         }
-
-
-
     }
 }
 
