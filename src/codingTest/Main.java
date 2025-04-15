@@ -13,7 +13,7 @@ public class Main {
 
         PerfectCrime perfectCrime = new PerfectCrime();
 
-        perfectCrime.solution(new int[][]{{1,2}, {2,3}, {2,1}},4,4);
+        System.out.println(perfectCrime.solution(new int[][]{{1,2}, {2,3}, {2,1}},4,4));
 
     }
 }
