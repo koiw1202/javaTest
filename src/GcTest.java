@@ -1,9 +1,4 @@
-import stream.Person;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import string.Person;
 
 /**
  * description    :
@@ -14,22 +9,13 @@ import java.util.Map;
  */
 public class GcTest {
 
-
+    String a = "11";
 
     public static  void  main(String args[]){
-
-        Person p1 = new Person("123");
-        Person p2 = new Person("123");
-        Person p3 = p1;
-
-        if(p1.equals(p2)) {
-            System.out.println("1");
+        for(double i=0; i < 9000000000.0; i++) {
+            Person[] person = new Person[10000];
         }
-
-        if(p1.equals(p3)) {
-            System.out.println("2");
-        }
-
-
+        System.out.println("123");
     }
+
 }
