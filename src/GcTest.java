@@ -7,6 +7,7 @@ import string.Person;
  * -----------------------------------------------------------
  * 2024-12-18        koiw1       최초 생성
  */
+
 public class GcTest {
 
     String a = "11";
