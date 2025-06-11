@@ -2,47 +2,49 @@ package codingTest;
 
 import java.util.*;
 
-public class PerfectCrime {
+class PerfectCrime {
 
-    static final int INF = 100000;
+    public static void main(String[] args) {
 
-    public int solution(int[][] info, int n, int m) {
-        int len = info.length;
-        // DP 배열 초기화
-        int[][] dp = new int[n + 1][m + 1];
-        for (int i = 0; i <= n; i++) {
-            for (int j = 0; j <= m; j++) {
-                dp[i][j] = Integer.MAX_VALUE; // 초기값을 무한대로 설정
-            }
+        int[][] info = {{1,2}, {2,3}, {2,1}};
+        int n = 4;
+        int m = 4;
+
+        int N = info.length;
+        final int INF = n + m + 1; // 충분히 큰 값
+
+        // dp[i][j] = i개 물건 고려했을 때, A 흔적 = j일 경우 B 흔적의 최소값
+        int[][] dp = new int[N + 1][n];
+        for (int i = 0; i <= N; i++) {
+            Arrays.fill(dp[i], INF);
         }
-        dp[0][0] = 0; // 초기 상태: A도둑과 B도둑의 흔적이 0인 상태
+        dp[0][0] = 0;
 
-        // 각 물건에 대해 DP 업데이트
-        for (int i = 1; i < info.length; i++) {
-            int aTrace = info[i][0];
-            int bTrace = info[i][1];
+        for (int i = 0; i < N; i++) {
+            int a = info[i][0];
+            int b = info[i][1];
+            for (int j = 0; j < n; j++) {
+                if (dp[i][j] >= INF) continue;
 
-            // 역순으로 업데이트하여 이전 상태를 유지
-            for (int j = 0; j < m; j++) {
+                // A가 훔칠 경우
+                if (j + a < n) {
+                    dp[i + 1][j + a] = Math.min(dp[i + 1][j + a], dp[i][j]);
+                }
 
-                // A도둑이 물건을 훔치는 경우
-                dp[i][j] = Math.min(dp[i][j], dp[i-1][j] + aTrace);
-
-                // B도둑이 물건을 훔치는 경우
-                if(j + bTrace < m){
-                    dp[i][j + bTrace] = Math.min(dp[i][j + bTrace], dp[i-1][j]);
+                // B가 훔칠 경우
+                if (dp[i][j] + b < m) {
+                    dp[i + 1][j] = Math.min(dp[i + 1][j], dp[i][j] + b);
                 }
             }
-
         }
 
-        // A도둑의 흔적의 최소값 찾기
-        int minA = Integer.MAX_VALUE;
-
-        for(int j = 0; j < m; j++){
-            minA = Math.min(dp[info.length][j], minA);
+        int ans = INF;
+        for (int j = 0; j < n; j++) {
+            if (dp[N][j] < m) {
+                ans = Math.min(ans, j);
+            }
         }
 
-        return minA == Integer.MAX_VALUE ? -1 : minA;
+        System.out.println(ans == INF ? -1 : ans);
     }
 }
