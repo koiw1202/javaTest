@@ -1,55 +1,45 @@
 package codingTest;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 
 public class Players {
 
-    public static void main(String[] args) {
-
-        // [0, 0, 0, 10, 0, 12, 0, 15, 0, 1, 0, 1, 0, 0, 0, 5, 0, 0, 11, 0, 8, 0, 0, 0]	5	1
-
-        int[] players = {0,0,1};
-        int m = 1;
-        int k = 24;
-
-//        int[] players = {0, 2, 3, 3, 1, 2, 0, 0, 0, 0, 4, 2, 0, 6, 0, 4, 2, 13, 3, 5, 10, 0, 1, 5};
-//        int m = 3;
-//        int k = 5;
-
-        // n * m명 이상 <= 값 <(n + 1) * m
-
-        List<Integer> list = new ArrayList<>();
+    class Server {
+        int time = 1;
+    }
+    public int solution() {
         int answer = 0;
+        int[] players = {0, 2, 3, 3, 1, 2, 0, 0, 0, 0, 4, 2, 0, 6, 0, 4, 2, 13, 3, 5, 10, 0, 1, 5};
+        int m = 3;
+        int k = 5;
+        List<Server> servers = new LinkedList<>();
 
-        for(int i = 0 ; i < players.length;i++) {
+        for(int i = 0; i < players.length; i++) {
+            Iterator<Server> iterator = servers.iterator();
+            while(iterator.hasNext()) {
+                Server server = iterator.next();
 
-            /* list 값 내부 1씩 증가 */
-            for(int j = 0 ; j < list.size(); j++) {
-
-                list.set(j, list.get(j) + 1);
-
-                if(list.get(j) > k) {
-                    list.remove(j);
-                    j--;
+                server.time++;
+                if(server.time > k) {
+                    iterator.remove();
                 }
             }
 
-            int needs = players[i] / m;
+            int isServerNeeds = players[i] / m;
+            isServerNeeds -= servers.size();
 
-            /* 서버가 더 필요한지 체크 */
-            if( ! (needs <= list.size())) {
-
-                int needsCnt = needs - list.size();
-
-                for(int j= 0; j < needsCnt ; j++) {
-                    list.add(1);
+            if( isServerNeeds > 0) {
+                for(int j = 0; j < isServerNeeds; j++) {
+                    servers.add(new Server());
                     answer++;
                 }
             }
         }
 
-        System.out.println(answer);
-
+        return answer;
     }
+
 }
