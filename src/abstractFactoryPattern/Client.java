@@ -16,6 +16,10 @@ class ConcreteProductA2 implements AbstractProductA {
 interface AbstractProductB {
 }
 
+// Product B 제품군
+interface AbstractProductC {
+}
+
 // Product B - 1
 class ConcreteProductB1 implements AbstractProductB {
 }
