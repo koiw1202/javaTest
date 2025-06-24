@@ -23,7 +23,7 @@ public class SumOfConsecutiveSubarrays {
             // 1. k와 값이 일치하는지
             int currentLength = right - left;
 
-            if(currentSum == k) {
+            if( currentSum == k ) {
 
                 // 2. 길이가 짧은지
                 if(minLength > currentLength) {
