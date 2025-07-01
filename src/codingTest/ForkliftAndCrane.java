@@ -18,146 +18,105 @@ public class ForkliftAndCrane {
         };
 
         String[] requests = {"O", "OO"};
-        char[][] storageArr = new char[storage.length][storage[0].length()];
+        int rows = storage.length;
+        int cols = storage[0].length();
+        char[][] storageArr = new char[rows][cols];
+        int[][] visited = new int[rows][cols];
 
-        // 0: 기본값
-        // 1: 이동가능
-        // 2: 크레인으로 삭제는 됐지만 주변이 막혀있음.
-        int[][] visited = new int[storage.length][storage[0].length()];
-
-        for(int i=0; i < storage.length; i++) {
+        for (int i = 0; i < rows; i++) {
             storageArr[i] = storage[i].toCharArray();
         }
 
-        int answer = storageArr.length * storageArr[0].length;
+        int answer = rows * cols;
 
         for (String request : requests) {
             char target = request.charAt(0);
-            List<int[]> moveList = new ArrayList<>();
+            List<int[]> toProcess = new ArrayList<>();
 
-            // 크레인
             if (request.length() == 2) {
-
-                for (int j = 0; j < storageArr.length; j++) {
-                    for (int k = 0; k < storageArr[0].length; k++) {
-                        if (storageArr[j][k] == target && visited[j][k] == 0) {
-                            moveList.add(new int[]{j, k});
-                            storageArr[j][k] = ' ';
+                // 크레인
+                for (int i = 0; i < rows; i++) {
+                    for (int j = 0; j < cols; j++) {
+                        if (storageArr[i][j] == target && visited[i][j] == 0) {
+                            toProcess.add(new int[]{i, j});
+                            storageArr[i][j] = ' ';
                             answer--;
                         }
-                    } // End of second for
-                } // End of for
-
-                for (int[] xy : moveList) {
-                    int x = xy[0];
-                    int y = xy[1];
-
-                    // 예외 케이스 외곽쪽에 있는 항목들은 무조건 이동 가능
-                    if (x == 0 || y == 0 || x == storageArr.length - 1 || y == storageArr[0].length - 1) {
-                        visited[x][y] = 1;
-                        changeVisited(x, y, visited);
-                        continue;
                     }
+                }
 
-                    // 우선 이동 불가능하다고 판단하고 아래 로직을 통해 이동 가능한 경록가 있다면 수정될 예정
-                    visited[x][y] = 2;
+                for (int[] pos : toProcess) {
+                    int x = pos[0], y = pos[1];
 
-                    // 주변에 이동이 가능한 경로가 있다면
-                    for (int l = 0; l < drX.length; l++) {
-                        int nextX = x + drX[l];
-                        int nextY = y + drY[l];
+                    if (isEdge(x, y, rows, cols)) {
+                        visited[x][y] = 1;
+                        spreadMovable(x, y, visited);
+                    } else if (hasMovableNeighbor(x, y, visited)) {
+                        visited[x][y] = 1;
+                        spreadMovable(x, y, visited);
+                    } else {
+                        visited[x][y] = 2;
+                    }
+                }
 
-                        if (nextX >= 0 && nextY >= 0 && nextX < visited.length && nextY < visited[0].length) {
-                            //이동 가능하다면 현재 위치를 1로 변경
-                            if (visited[nextX][nextY] == 1) {
-                                visited[x][y] = 1;
-                                changeVisited(x, y, visited);
-                                break;
+            } else {
+                // 지게차
+                for (int i = 0; i < rows; i++) {
+                    for (int j = 0; j < cols; j++) {
+                        if (storageArr[i][j] == target) {
+                            if (isEdge(i, j, rows, cols) || hasMovableNeighbor(i, j, visited)) {
+                                toProcess.add(new int[]{i, j});
                             }
                         }
                     }
                 }
-            } // End of 크레인
 
-            // 지게차
-            else {
-                for (int j = 0; j < storageArr.length; j++) {
-                    for (int k = 0; k < storageArr[0].length; k++) {
-                        if (storageArr[j][k] == target) {
+                for (int[] pos : toProcess) {
+                    int x = pos[0], y = pos[1];
 
-                            // 예외 케이스 외곽쪽에 있는 항목들은 무조건 이동 가능
-                            if (j == 0 || k == 0 || j == storageArr.length - 1 || k == storageArr[0].length - 1) {
-                                moveList.add(new int[]{j, k});
-                                continue;
-                            }
-
-                            // 주변에 이동이 가능한 경로가 있다면
-                            for (int l = 0; l < drX.length; l++) {
-                                int nextX = j + drX[l];
-                                int nextY = k + drY[l];
-
-                                if (nextX >= 0 && nextY >= 0 && nextX < visited.length && nextY < visited[0].length) {
-                                    //이동 가능하다면 현재 위치를 배열에 담음
-                                    if (visited[nextX][nextY] == 1) {
-                                        moveList.add(new int[]{j, k});
-                                        break;
-                                    }
-                                }
-                            }
-                        } // End of target이 같은 경우
-                    } // End of second for
-                } //  End of first for
-
-                for (int[] xy : moveList) {
-                    int x = xy[0];
-                    int y = xy[1];
-
-                    // 예외 케이스 외곽쪽에 있는 항목들은 무조건 이동 가능
-                    if (x == 0 || y == 0 || x == storageArr.length - 1 || y == storageArr[0].length - 1) {
+                    if (isEdge(x, y, rows, cols) || hasMovableNeighbor(x, y, visited)) {
                         visited[x][y] = 1;
                         storageArr[x][y] = ' ';
                         answer--;
-                        changeVisited(x, y, visited);
-                        continue;
-                    }
-
-                    // 주변에 이동이 가능한 경로가 있다면
-                    for (int l = 0; l < drX.length; l++) {
-                        int nextX = x + drX[l];
-                        int nextY = y + drY[l];
-
-                        if (nextX >= 0 && nextY >= 0 && nextX < visited.length && nextY < visited[0].length) {
-                            //이동 가능하다면 현재 위치를 1로 변경
-                            if (visited[nextX][nextY] == 1) {
-                                visited[x][y] = 1;
-                                storageArr[x][y] = ' ';
-                                answer--;
-                                changeVisited(x, y, visited);
-                                break;
-                            }
-                        }
+                        spreadMovable(x, y, visited);
                     }
                 }
-            } // End of 지게차
-        } // End of request for
+            }
+        }
 
         System.out.println(answer);
 
     }
 
-    // 상하좌우에 2인 값이 없는지 체크
-    public static void changeVisited(int x, int y, int[][] visited) {
+    static boolean isEdge(int x, int y, int rows, int cols) {
+        return x == 0 || y == 0 || x == rows - 1 || y == cols - 1;
+    }
 
-        for(int l=0; l<drX.length;l++) {
-            int nextX = x + drX[l];
-            int nextY = y + drY[l];
+    static boolean hasMovableNeighbor(int x, int y, int[][] visited) {
+        for (int dir = 0; dir < 4; dir++) {
+            int nx = x + drX[dir];
+            int ny = y + drY[dir];
 
-            if(nextX >=0 && nextY >=0 && nextX < visited.length && nextY < visited[0].length) {
-                if(visited[nextX][nextY] == 2) {
-                    visited[nextX][nextY] = 1;
-                    changeVisited(nextX, nextY, visited);
+            if (nx >= 0 && ny >= 0 && nx < visited.length && ny < visited[0].length) {
+                if (visited[nx][ny] == 1) {
+                    return true;
                 }
             }
         }
-    } // End of changeVisited
+        return false;
+    }
+
+    static void spreadMovable(int x, int y, int[][] visited) {
+        for (int dir = 0; dir < 4; dir++) {
+            int nx = x + drX[dir];
+            int ny = y + drY[dir];
+
+            if (nx >= 0 && ny >= 0 && nx < visited.length && ny < visited[0].length) {
+                if (visited[nx][ny] == 2) {
+                    visited[nx][ny] = 1;
+                    spreadMovable(nx, ny, visited);
+                }
+            }
+        }
+    }
 }
