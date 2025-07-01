@@ -148,7 +148,7 @@ public class ForkliftAndCrane {
     // 상하좌우에 2인 값이 없는지 체크
     public static void changeVisited(int x, int y, int[][] visited) {
 
-        for(int l=0; l<drX.length;l++){
+        for(int l=0; l<drX.length;l++) {
             int nextX = x + drX[l];
             int nextY = y + drY[l];
 
