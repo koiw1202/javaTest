@@ -14,7 +14,7 @@ public class A {
 
         b.map = new HashMap<>();
         GcTest gcTest = new GcTestChild();
-        gcTest.a = "test";
+
 
         b.map.put("gcTest", gcTest);
 
@@ -22,7 +22,6 @@ public class A {
 
         GcTestChild gcTestChild = (GcTestChild) b.map.get("gcTest");
 
-        System.out.println(gcTestChild.a);
 
 
 

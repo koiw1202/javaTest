@@ -1,5 +1,10 @@
 import string.Person;
 
+import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Queue;
+
 /**
  * description    :
  * ===========================================================
@@ -10,13 +15,22 @@ import string.Person;
 
 public class GcTest {
 
-    String a = "11";
-
     public static  void  main(String args[]){
-        for(double i=0; i < 9000000000.0; i++) {
-            Person[] person = new Person[10000];
-        }
-        System.out.println("123");
+
+        List<String> list = new ArrayList<>();
+        list.add("123");
+        Queue que = new LinkedList();
+        que.add(list);
+
+        list.remove(0);
+
+        List<String> list2 = (ArrayList) que.poll();
+        System.out.println(list2.get(0));
+
+
     }
+
+
+
 
 }
