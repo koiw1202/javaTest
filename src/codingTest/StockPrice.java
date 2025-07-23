@@ -36,9 +36,7 @@ public class StockPrice {
                 Iterator<Price> iterator = stack.iterator();
                 while(iterator.hasNext()) {
                     Price price = iterator.next();
-
                     if(price.value > prices[i+1]) {
-
                         answer[price.index] = i - price.index + 1;
                         iterator.remove();
                     }
