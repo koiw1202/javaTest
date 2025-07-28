@@ -28,8 +28,6 @@ public class DeliveryBox {
             }
         }
 
-
-
         System.out.println(answer);
 
     }
