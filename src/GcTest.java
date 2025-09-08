@@ -17,15 +17,13 @@ public class GcTest {
 
     public static  void  main(String args[]){
 
-        List<String> list = new ArrayList<>();
-        list.add("123");
-        Queue que = new LinkedList();
-        que.add(list);
-
-        list.remove(0);
-
-        List<String> list2 = (ArrayList) que.poll();
-        System.out.println(list2.get(0));
+//        TransportAddress publishAddress;
+//
+//        String hostString = publishAddress.address().getHostString();
+//        String publishAddressString = publishAddress.toString();
+//        if (InetAddresses.isInetAddress(hostString) == false) {
+//            publishAddressString = hostString + '/' + publishAddress.toString();
+//        }
 
 
     }
