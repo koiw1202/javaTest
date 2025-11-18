@@ -16,22 +16,10 @@ public class Main {
 
     public static void main(String args[]) throws IOException {
 
-        List<CompletableFuture> list = new ArrayList<>();
+        Object obj= new String();
 
-        for(int i = 0; i < 1000; i++) {
-            list.add(CompletableFuture.runAsync(() -> {
 
-                System.out.println(Thread.currentThread() + " 실행");
-                try {
-                    Thread.sleep(1000);
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-            }));
-        }
 
-        for(CompletableFuture completableFuture : list) {
-            completableFuture.join();
-        }
+
     }
 }
